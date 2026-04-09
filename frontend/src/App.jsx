@@ -1,10 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
 import './App.css'
 
-// Dynamically determine the backend IP so other devices on the network can connect!
-const hostname = window.location.hostname
-const API_BASE = `http://${hostname}:8000`
-const WS_BASE = `ws://${hostname}:8000/ws`
+const API_BASE = "https://cyberbullying-a2nu.onrender.com"
+const WS_BASE = "wss://cyberbullying-a2nu.onrender.com/ws"
 
 function App() {
   const [inRoom, setInRoom] = useState(false)
