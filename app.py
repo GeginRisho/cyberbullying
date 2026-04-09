@@ -45,8 +45,10 @@ def load_model():
         with open(vec_path, "rb") as f:
             vectorizer = pickle.load(f)
         print("Successfully loaded MLP Model and Vectorizer!")
-    else:
-        print("Warning: Model files not found. Did you run train.py successfully?")
+
+@app.get("/")
+def home():
+    return {"message": "Cyberbullying Detection API Running Successfully"}
 
 # --- ROOM MANAGEMENT ---
 # rooms structure: { "room_id": {"password": "pass", "connections": [WebSocket, ...], "history": []} }
