@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import './App.css'
 
 const API_BASE = "https://cyberbullying-a2nu.onrender.com"
-const WS_BASE = "wss://cyberbullying-a2nu.onrender.com"
+const WS_BASE = "wss://cyberbullying-a2nu.onrender.com/ws"
 
 function App() {
   const [inRoom, setInRoom] = useState(false)
