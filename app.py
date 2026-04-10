@@ -105,7 +105,7 @@ def is_message_toxic(original_text: str) -> tuple[bool, str, str, str]:
     
     # Add a strict heuristic whitelist for common safe greetings 
     # to override the ML bias from the Twitter dataset
-    safelist = {"hi", "hii", "hiii", "hello", "hey", "heya", "ok", "okay", "yes", "no", "good", "nice", "cool", "morning", "how are you"}
+    safelist = {"hi", "hii", "hiii", "hello", "hey", "heya", "ok", "okay", "yes", "no", "good", "nice", "cool","are you ok","the", "morning", "how are you"}
     if cleaned in safelist:
         return False, "0.00%", "Safe", text
     
@@ -114,7 +114,7 @@ def is_message_toxic(original_text: str) -> tuple[bool, str, str, str]:
         return False, "0.00%", "Safe", text
         
     # Add a hardcoded blacklist for extremely common severe profanities to bypass ML dilution
-    blacklist = {"fuck", "shit", "bitch", "cunt", "nigger", "faggot", "whore", "slut", "asshole", "motherfucker", "bastard"}
+    blacklist = {"fuck", "shit", "bitch", "cunt", "nigger", "faggot", "whore", "slut", "asshole", "motherfucker", "bastard","thevidiya","punda","thayoli",}
     for word in cleaned.split():
         if word in blacklist:
             return True, "100.00%", "100.00%", text
