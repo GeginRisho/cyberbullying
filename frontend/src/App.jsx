@@ -40,26 +40,31 @@ function App() {
   }, [])
 
   const connectWebSocket = (rId, user) => {
-    const ws = new WebSocket(`${WS_BASE}/${rId}/${user}`)
-    
-    ws.onopen = () => {
-      setInRoom(true)
-      setRoomId(rId)
-      setUsername(user)
-    }
-    
-    ws.onmessage = (event) => {
-      const data = JSON.parse(event.data)
-      setChatHistory(prev => [...prev, data])
-    }
-    
-    ws.onclose = () => {
-      setInRoom(false)
-      setChatHistory(prev => [...prev, {type: 'system', content: 'Connection lost to server.'}])
-    }
-    
-    wsRef.current = ws
+   setTimeout(() => {
+  const ws = new WebSocket(`${WS_BASE}/${rId}/${user}`)
+
+  ws.onopen = () => {
+    setInRoom(true)
+    setRoomId(rId)
+    setUsername(user)
   }
+
+  ws.onmessage = (event) => {
+    const data = JSON.parse(event.data)
+    setChatHistory(prev => [...prev, data])
+  }
+
+  ws.onclose = () => {
+    setInRoom(false)
+    setChatHistory(prev => [
+      ...prev,
+      { type: 'system', content: 'Connection lost to server.' }
+    ])
+  }
+
+  wsRef.current = ws
+}, 3000)
+   }
 
   const handleCreateRoom = async (e) => {
     e.preventDefault()
