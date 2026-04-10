@@ -114,7 +114,7 @@ def is_message_toxic(original_text: str) -> tuple[bool, str, str, str]:
         return False, "0.00%", "Safe", text
         
     # Add a hardcoded blacklist for extremely common severe profanities to bypass ML dilution
-    blacklist = {"fuck", "shit", "bitch", "cunt", "nigger", "faggot", "whore", "slut", "asshole", "motherfucker", "bastard","thevidiya","punda","thayoli","kunna","soma"}
+    blacklist = {"fuck", "shit", "bitch", "cunt", "nigger", "faggot", "whore", "slut", "asshole", "motherfucker", "bastard","thevidiya","punda","thayoli","sunni","soma","kunna"}
     for word in cleaned.split():
         if word in blacklist:
             return True, "100.00%", "100.00%", text
