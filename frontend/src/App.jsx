@@ -40,23 +40,26 @@ function App() {
   }, [])
 
  const connectWebSocket = async (rId, user) => {
+  if (wsRef.current) {
+    wsRef.current.close();
+    wsRef.current = null;
+  }
   try {
     setLobbyError("");
 
     // Wake backend
     await fetch(`${API_BASE}/`);
-
-    // Wait for Render backend wake-up
-    await new Promise(resolve => setTimeout(resolve, 15000));
-
     const ws = new WebSocket(`${WS_BASE}/${rId}/${user}`);
+   
 
     ws.onopen = () => {
-      wsRef.current = ws;
-      setInRoom(true);
-      setRoomId(rId);
-      setUsername(user);
-    };
+    wsRef.current = ws;
+    setRoomId(rId);
+    setUsername(user);
+    setInRoom(true);
+  };
+
+   
 
     ws.onmessage = (event) => {
   const data = JSON.parse(event.data);
