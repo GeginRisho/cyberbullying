@@ -39,14 +39,20 @@ function App() {
     }
   }, [])
 
-   const connectWebSocket = async (rId, user) => {
+ const connectWebSocket = async (rId, user) => {
   try {
-    // Wake backend first
+    setLobbyError("");
+
+    // Wake backend
     await fetch(`${API_BASE}/`);
+
+    // Wait for Render backend wake-up
+    await new Promise(resolve => setTimeout(resolve, 15000));
 
     const ws = new WebSocket(`${WS_BASE}/${rId}/${user}`);
 
     ws.onopen = () => {
+      wsRef.current = ws;
       setInRoom(true);
       setRoomId(rId);
       setUsername(user);
@@ -65,11 +71,10 @@ function App() {
       setInRoom(false);
       setChatHistory(prev => [
         ...prev,
-        { type: 'system', content: 'Connection lost to server.' }
+        { type: "system", content: "Connection lost to server." }
       ]);
     };
 
-    wsRef.current = ws;
   } catch (err) {
     setLobbyError("Failed to connect server");
   }
