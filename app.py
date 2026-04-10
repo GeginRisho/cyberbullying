@@ -143,7 +143,7 @@ async def websocket_endpoint(websocket: WebSocket, room_id: str, username: str):
         await websocket.close()
         return
 
-    # Add client to room
+    if websocket not in rooms[room_id]["connections"]:
     rooms[room_id]["connections"].append(websocket)
     
     # Announce user joined
