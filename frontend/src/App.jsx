@@ -59,9 +59,29 @@ function App() {
     };
 
     ws.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      setChatHistory(prev => [...prev, data]);
-    };
+  const data = JSON.parse(event.data);
+
+  setChatHistory(prev => {
+    // Prevent duplicate message IDs
+    if (data.id && prev.some(msg => msg.id === data.id)) {
+      return prev;
+    }
+
+    // Prevent duplicate system messages
+    if (
+      data.type === "system" &&
+      prev.some(
+        msg =>
+          msg.type === "system" &&
+          msg.content === data.content
+      )
+    ) {
+      return prev;
+    }
+
+    return [...prev, data];
+  });
+};
 
     ws.onerror = () => {
       setLobbyError("WebSocket connection failed");
