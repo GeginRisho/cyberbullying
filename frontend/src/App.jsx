@@ -63,7 +63,7 @@ function App() {
   }
 
   wsRef.current = ws
-}, 3000)
+}, 8000)
    }
 
   const handleCreateRoom = async (e) => {
