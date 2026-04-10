@@ -144,7 +144,7 @@ async def websocket_endpoint(websocket: WebSocket, room_id: str, username: str):
         return
 
     if websocket not in rooms[room_id]["connections"]:
-    rooms[room_id]["connections"].append(websocket)
+        rooms[room_id]["connections"].append(websocket)
     
     # Announce user joined
     join_msg = {"type": "system", "content": f"{username} joined the chat.", "sender": "System"}
